@@ -79,7 +79,6 @@ std::vector<Utils::Vertex> Utils::loadOBJ( std::istream& in ) {
       for( size_t i = 1; i+1 < refs.size(); ++i ) {
         const VertRef* p[3] = { &refs[0], &refs[i], &refs[i+1] };
 
-        // http://www.opengl.org/wiki/Calculating_a_Surface_Normal
         glm::vec3 U( positions[ p[1]->v ] - positions[ p[0]->v ] );
         glm::vec3 V( positions[ p[2]->v ] - positions[ p[0]->v ] );
         glm::vec3 faceNormal = glm::normalize( glm::cross( U, V ) );
