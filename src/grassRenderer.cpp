@@ -1,6 +1,5 @@
 #include "grassRenderer.h"
 
-// Scarcity is the average distance between grass blades along one axis.
 GrassRenderer::GrassRenderer(glm::vec2 grassStart, glm::vec2 grassStop, float scarcity) : 
   grassShader("assets/grassVertex.glsl", "assets/grassFragment.glsl"), grassMesh("assets/grass.obj"), lowPolyGrassMesh("assets/grassTriangle.obj") {
 
@@ -34,8 +33,7 @@ void GrassRenderer::renderGrass(const Camera &camera) {
   Shader::setMat4(viewMatrixUBO, camera.getViewMatrix());
   Shader::setFloat(timeUBO, (float)(Utils::currentTimeMillis() - startTime) / 1000.0f);
 
-  // There's only one SSBO which each chunk writes grass positions to before it renders, this might be a place of
-  // future optimization.
+  
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, positionsSSBO);
   for (GrassChunk chunk : grassChunks) {
     if (chunk.getDistanceFromCamera(camera.getPosition()) < GRASS_LOD_CUTOFF_DISTANCE) {
